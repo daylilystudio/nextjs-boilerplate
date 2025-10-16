@@ -1,17 +1,17 @@
 import Image from "next/image";
+import { getSession } from "@/lib/auth";
+import LoginButton from "@/components/LoginButton";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getSession();
+  console.log(session);
+  
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
+        {session &&
+        <p>Hi, {session.user?.email}</p>}
+        <LoginButton isLogin={!!session} />
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
             Get started by editing{" "}
