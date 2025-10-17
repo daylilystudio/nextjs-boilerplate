@@ -1,17 +1,10 @@
-import {
-  getServerSession,
-  type Account,
-  type Profile,
-  type Session,
-  type User,
-} from 'next-auth';
-import type { AdapterUser } from 'next-auth/adapters';
+import { getServerSession, type AuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { PrismaClient } from '@/generated/prisma';
 const prisma = new PrismaClient();
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -21,34 +14,21 @@ export const authOptions = {
   ],
   callbacks: {
     // next-auth 預設不完全信任第三方 OAuth 提供者回傳的「信箱已驗證」狀態。所以要手動更新
-    async signIn({
-      user,
-      account,
-      profile,
-    }: {
-      user: (User & { emailVerified: boolean | null }) | AdapterUser;
-      account: Account | null;
-      profile?: Profile & { email_verified?: boolean };
-    }) {
+    async signIn({ user, account, profile }) {
       if (
         account?.provider === 'google' &&
-        profile?.email_verified === true &&
+        (profile as { email_verified: boolean })?.email_verified === true &&
+        'emailVerified' in user &&
         user.emailVerified === null
       ) {
         await prisma.user.update({
           where: { id: user.id },
-          data: { emailVerified: profile.email_verified },
+          data: { emailVerified: true },
         });
       }
       return true;
     },
-    async session({
-      session,
-      user,
-    }: {
-      session: Session;
-      user: User | AdapterUser;
-    }) {
+    async session({ session, user }) {
       if (session.user) {
         (session.user as { id: string }).id = user.id;
       }
