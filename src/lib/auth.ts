@@ -1,8 +1,14 @@
-import { getServerSession } from "next-auth";
-
-import GoogleProvider from "next-auth/providers/google";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@/generated/prisma";
+import {
+  getServerSession,
+  type Account,
+  type Profile,
+  type Session,
+  type User,
+} from 'next-auth';
+import type { AdapterUser } from 'next-auth/adapters';
+import GoogleProvider from 'next-auth/providers/google';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { PrismaClient } from '@/generated/prisma';
 const prisma = new PrismaClient();
 
 export const authOptions = {
@@ -20,12 +26,12 @@ export const authOptions = {
       account,
       profile,
     }: {
-      user: any;
-      account: any;
-      profile: any;
+      user: (User & { emailVerified: boolean | null }) | AdapterUser;
+      account: Account | null;
+      profile?: Profile & { email_verified?: boolean };
     }) {
       if (
-        account?.provider === "google" &&
+        account?.provider === 'google' &&
         profile?.email_verified === true &&
         user.emailVerified === null
       ) {
@@ -36,9 +42,15 @@ export const authOptions = {
       }
       return true;
     },
-    async session({ session, user }: { session: any; user: any }) {
+    async session({
+      session,
+      user,
+    }: {
+      session: Session;
+      user: User | AdapterUser;
+    }) {
       if (session.user) {
-        session.user.id = user.id;
+        (session.user as { id: string }).id = user.id;
       }
       return session;
     },
