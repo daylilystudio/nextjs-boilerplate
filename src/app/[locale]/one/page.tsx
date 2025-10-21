@@ -12,7 +12,7 @@ export default async function OnePage() {
   console.log('User Attributes:', attributes);
 
   const sheetId = '18JivT389qLCz8uB2GCRMneC_bYm-CvO0zbO0NtU6M7s';
-  const data = await getSheets(sheetId, ['intro']);
+  const data = await getSheets(sheetId, ['intro']) || {};
   
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">

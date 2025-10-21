@@ -21,8 +21,7 @@ export async function getSheets(sheetId: string, tabNames: string[]) {
 
     const data = (await response.json()) || {};
     return data;
-  } catch (error) {
-    console.error('Fetch Error:', error);
+  } catch {
     return { error: 'Failed to connect to the API server.' };
   }
 }
