@@ -19,7 +19,7 @@ export async function getSheets(sheetId: string, tabNames: string[]) {
       return { error: `API request failed: ${errorData.message}` };
     }
 
-    const data = await response.json();
+    const data = (await response.json()) || {};
     return data;
   } catch (error) {
     console.error('Fetch Error:', error);

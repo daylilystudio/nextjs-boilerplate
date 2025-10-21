@@ -18,10 +18,10 @@ export default async function OnePage() {
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-4 row-start-2 items-center sm:items-start">
         <h2 className="font-bold opacity-40">Amplify {t('common.signin')} :</h2>
-        <p className="flex gap-3 items-center justify-center">
+        {attributes && <p className="flex gap-3 items-center justify-center">
           {attributes?.avatar_path && <Image className="rounded-full" width={24} height={24} src={attributes?.avatar_path} alt={attributes?.nickname} />}
           {t('home.greet')} {attributes?.nickname} 
-        </p>
+        </p>}
         <Auth path="one"/>
         <hr className="w-full border-top border-white my-2"/>
         <h2 className="font-bold opacity-40">Google Sheets Data :</h2>
