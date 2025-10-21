@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import {NextIntlClientProvider} from 'next-intl';
-import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { getMessages, getTimeZone, getTranslations, setRequestLocale } from "next-intl/server";
+import { NextIntlProvider } from "@/components/NextIntlProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,15 +44,17 @@ export default async function RootLayout({
   const {locale} = await params;
   setRequestLocale(locale);
   const messages = await getMessages();
+  const timeZone = await getTimeZone();
 
   return (
     <html lang={locale}>
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlProvider locale={locale} messages={messages} timeZone={timeZone}>
           {children}
-        </NextIntlClientProvider>
+        </NextIntlProvider>
       </body>
     </html>
   );

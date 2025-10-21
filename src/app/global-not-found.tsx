@@ -1,6 +1,7 @@
 import { defaultLocale } from '@/i18n/routing';
 import { getLocale, getTranslations } from 'next-intl/server';
 import Link from 'next/link';
+import "./globals.css";
 
 // 這個頁面無法被翻譯，因為它在 locale 路由之外
 export default async function RootNotFound() {
@@ -10,21 +11,12 @@ export default async function RootNotFound() {
   return (
     <html lang={locale}>
       <body>
-        <div style={{
-          fontFamily: 'sans-serif',
-          textAlign: 'center',
-          padding: '4rem 2rem',
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
+        <div className="font-sans flex flex-col items-center justify-center min-h-screen gap-5">
           <h1 style={{ fontSize: '2rem', fontWeight: 600 }}>{t('404.title')}</h1>
-          <p style={{ fontSize: '1.125rem', marginTop: '1rem' }}>{t('404.description')}</p>
-          <div style={{ marginTop: '2rem' }}>
+          <p style={{ fontSize: '1.125rem' }}>{t('404.description')}</p>
+          <div>
             {/* 提供明確的語言連結 */}
-            <Link href={locale!==defaultLocale ? `/${locale}`:`/`}>{t('backToHome')}</Link>
+            <Link className='text-gray-400 hover:text-blue-500 transition-colors' href={locale!==defaultLocale ? `/${locale}`:`/`}>{t('backToHome')}</Link>
           </div>
         </div>
        </body>

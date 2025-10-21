@@ -5,5 +5,7 @@
     "title": "找不到",
     "description": "找不到任何東西"
   },
-  "backToHome": "回首頁"
+  "backToHome": "回首頁",
+  "signin": "登入",
+  "signout": "登出"
 }

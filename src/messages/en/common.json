@@ -5,5 +5,7 @@
     "title": "not found",
     "description": "cannot found anything"
   },
-  "backToHome": "Back to Home"
+  "backToHome": "Back to Home",
+  "signin": "Sign In",
+  "signout": "Sign Out"
 }
