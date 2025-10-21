@@ -25,7 +25,7 @@ export default async function OnePage() {
         <Auth path="one"/>
         <hr className="w-full border-top border-white my-2"/>
         <h2 className="font-bold opacity-40">Google Sheets Data :</h2>
-        {<p>{data?.intro[0]?.highlight_title || ''}</p>}
+        {<p>{data?.intro?.[0]?.highlight_title || ''}</p>}
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <LangSwitcher />
