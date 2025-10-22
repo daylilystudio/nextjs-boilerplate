@@ -9,9 +9,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/',
-    '/events/(zh-TW|en)/:path*',
-    '/((?!api|_next|_vercel|.*\\..*).*)',
-  ],
+  matcher: ['/', '/((?!api|_next|_vercel|.*\\..*).*)'],
 };
