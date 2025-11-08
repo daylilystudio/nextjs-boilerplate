@@ -1,25 +1,31 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
+import prettierConfig from 'eslint-config-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
+const eslintConfig = defineConfig([
   {
-    ignores: [
-      '**/node_modules/**',
-      '**/.next/**',
-      '**/.vercel/**',
-      '**/src/generated/**',
-      'next-env.d.ts',
-    ],
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
+    rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+    },
   },
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
-];
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    '**/node_modules/**',
+    '**/.next/**',
+    '**/.vercel/**',
+    '**/src/generated/**',
+    'next-env.d.ts',
+  ]),
+  prettierConfig,
+]);
 
 export default eslintConfig;

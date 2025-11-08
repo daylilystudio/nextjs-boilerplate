@@ -12,7 +12,7 @@ type Props = {
 
 export function NextIntlProvider({ children, locale, messages, timeZone }: Props) {
   return (
-    <SessionProvider basePath="/events/api/auth">
+    <SessionProvider basePath="/api/auth">
       <NextIntlClientProvider locale={locale} messages={messages} timeZone={timeZone}>
         {children}
       </NextIntlClientProvider>
