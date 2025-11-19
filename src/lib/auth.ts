@@ -1,6 +1,7 @@
-import { getServerSession, type AuthOptions } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { type AuthOptions, getServerSession } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
+
 import { PrismaClient } from '@/generated/prisma';
 const prisma = new PrismaClient();
 
@@ -12,9 +13,9 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
-          prompt: 'select_account'
-        }
-      }
+          prompt: 'select_account',
+        },
+      },
     }),
   ],
   callbacks: {

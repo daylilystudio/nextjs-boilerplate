@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server';
 import createIntlMiddleware from 'next-intl/middleware';
+
 import { routing } from '@/i18n/routing';
 
 export function middleware(request: NextRequest) {

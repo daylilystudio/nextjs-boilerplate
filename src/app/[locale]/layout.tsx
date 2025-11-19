@@ -1,21 +1,32 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "../globals.css";
-import { getMessages, getTimeZone, getTranslations, setRequestLocale } from "next-intl/server";
-import { NextIntlProvider } from "@/components/NextIntlProvider";
+import '../globals.css';
+
+import { Geist, Geist_Mono } from 'next/font/google';
+import {
+  getMessages,
+  getTimeZone,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
+
+import { NextIntlProvider } from '@/components/NextIntlProvider';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
-export async function generateMetadata({params}:{params: Promise<{ locale: string }>;}) {
-  const {locale} = await params;
-  const t = await getTranslations({locale, namespace: 'common'});
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'common' });
   return {
     title: t('title'),
     description: t('description'),
@@ -30,8 +41,8 @@ export async function generateMetadata({params}:{params: Promise<{ locale: strin
         height: 630,
         alt: t('title'),
       },
-    }
-  }
+    },
+  };
 }
 
 export default async function RootLayout({
@@ -41,7 +52,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }>) {
-  const {locale} = await params;
+  const { locale } = await params;
   setRequestLocale(locale);
   const messages = await getMessages();
   const timeZone = await getTimeZone();
@@ -52,7 +63,11 @@ export default async function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextIntlProvider locale={locale} messages={messages} timeZone={timeZone}>
+        <NextIntlProvider
+          locale={locale}
+          messages={messages}
+          timeZone={timeZone}
+        >
           {children}
         </NextIntlProvider>
       </body>

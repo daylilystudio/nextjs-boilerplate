@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+
 import { siteUrl } from './sitemap';
 
 export default function robots(): MetadataRoute.Robots {
