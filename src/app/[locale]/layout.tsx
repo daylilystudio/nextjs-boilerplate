@@ -48,11 +48,9 @@ export async function generateMetadata({
 }
 
 export default async function RootLayout({
-  modal,
   children,
   params,
 }: Readonly<{
-  modal: React.ReactNode;
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }>) {
@@ -73,7 +71,6 @@ export default async function RootLayout({
           timeZone={timeZone}
         >
           {children}
-          {modal}
         </NextIntlProvider>
       </body>
     </html>
