@@ -14,7 +14,7 @@ export default function LangSwitcher() {
       >
         繁體中文
       </Link>
-      <span className="text-gray-600">|</span>
+      <span>|</span>
       <Link
         href={pathname}
         locale={locales[1]}
