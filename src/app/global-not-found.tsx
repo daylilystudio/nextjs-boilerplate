@@ -9,17 +9,15 @@ export default function RootNotFound() {
     <html>
       <body>
         <div className="font-sans flex flex-col items-center justify-center min-h-screen gap-5">
-          <h1 style={{ fontSize: '2rem', fontWeight: 600 }}>404</h1>
-          <p style={{ fontSize: '1.125rem' }}>找不到頁面</p>
-          <div>
-            {/* 用 next/link 會停滯在此頁，故改用 <a> */}
-            <a
-              className="text-gray-400 hover:text-blue-500 transition-colors"
-              href={SITE_URL}
-            >
-              Back to Home
-            </a>
-          </div>
+          <h1 className="font-bold text-3xl">404</h1>
+          <p className="text-lg">找不到頁面</p>
+          {/* 用 next/link 會停滯在此頁，故改用 <a> */}
+          <a
+            className="text-gray-400 hover:text-blue-500 transition-colors"
+            href={SITE_URL}
+          >
+            Back to Home
+          </a>
         </div>
       </body>
     </html>
