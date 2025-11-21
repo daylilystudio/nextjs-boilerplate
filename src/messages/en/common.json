@@ -1,11 +1,6 @@
 {
   "title": "Welcome",
   "description": "A welcoming message displayed on the homepage.",
-  "404": {
-    "title": "not found",
-    "description": "cannot found anything"
-  },
-  "backToHome": "Back to Home",
   "signin": "Sign In",
   "signout": "Sign Out"
 }

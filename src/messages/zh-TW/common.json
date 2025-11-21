@@ -1,11 +1,6 @@
 {
   "title": "歡迎光臨",
   "description": "歡迎光臨家裡的首頁訊息。",
-  "404": {
-    "title": "找不到",
-    "description": "找不到任何東西"
-  },
-  "backToHome": "回首頁",
   "signin": "登入",
   "signout": "登出"
 }
