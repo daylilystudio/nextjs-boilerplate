@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 
-import { siteUrl } from './sitemap';
+import { SITE_URL } from '@/utils/const';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -16,7 +16,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: '/private/', // Googlebot 不應爬取 /private/
       },
     ],
-    sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl,
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

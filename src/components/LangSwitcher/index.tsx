@@ -7,11 +7,19 @@ export default function LangSwitcher() {
   const pathname = usePathname();
   return (
     <div className="flex items-center space-x-2">
-      <Link href={pathname} locale={locales[0]} className="text-gray-400 hover:text-blue-500 transition-colors">
+      <Link
+        href={pathname}
+        locale={locales[0]}
+        className="text-gray-400 hover:text-blue-500 transition-colors"
+      >
         繁體中文
       </Link>
-      <span>|</span>
-      <Link href={pathname} locale={locales[1]} className="text-gray-400 hover:text-blue-500 transition-colors">
+      <span className="text-gray-600">|</span>
+      <Link
+        href={pathname}
+        locale={locales[1]}
+        className="text-gray-400 hover:text-blue-500 transition-colors"
+      >
         English
       </Link>
     </div>

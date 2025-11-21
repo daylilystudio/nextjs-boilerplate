@@ -9,6 +9,7 @@ import {
 } from 'next-intl/server';
 
 import { NextIntlProvider } from '@/components/NextIntlProvider';
+import { SITE_URL } from '@/utils/const';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,15 +29,16 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'common' });
   return {
+    metadataBase: SITE_URL,
     title: t('title'),
     description: t('description'),
     openGraph: {
       type: 'website',
-      url: 'https://example.com',
+      url: SITE_URL,
       title: t('title'),
       description: t('description'),
       Images: {
-        url: 'https://example.com/og-image.png',
+        url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
         alt: t('title'),
@@ -46,9 +48,11 @@ export async function generateMetadata({
 }
 
 export default async function RootLayout({
+  modal,
   children,
   params,
 }: Readonly<{
+  modal: React.ReactNode;
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }>) {
@@ -69,6 +73,7 @@ export default async function RootLayout({
           timeZone={timeZone}
         >
           {children}
+          {modal}
         </NextIntlProvider>
       </body>
     </html>

@@ -1,14 +1,14 @@
-import type { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next';
 
-export const siteUrl = process.env.NEXTAUTH_URL;
- 
+import { SITE_URL } from '@/utils/const';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: siteUrl!,
+      url: SITE_URL!,
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 1,
     },
-  ]
+  ];
 }

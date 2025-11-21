@@ -5,7 +5,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 import { defaultLocale } from '@/i18n/routing';
 
-// 這個頁面無法被翻譯，因為它在 locale 路由之外
+// 這個頁面無法被翻譯，因為它在 locale 路由之外，所以用 getLocale 取得目前語言
 export default async function RootNotFound() {
   const locale = await getLocale();
   const t = await getTranslations({ locale, namespace: 'common' });
