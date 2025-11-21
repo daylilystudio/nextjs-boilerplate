@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  cacheComponents: true,
 };
 
 const withNextIntl = createNextIntlPlugin();

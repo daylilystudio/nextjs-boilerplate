@@ -1,3 +1,4 @@
+'use cache';
 import '../globals.css';
 
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -9,6 +10,7 @@ import {
 } from 'next-intl/server';
 
 import { NextIntlProvider } from '@/components/NextIntlProvider';
+import { locales } from '@/i18n/routing';
 import { SITE_URL } from '@/utils/const';
 
 const geistSans = Geist({
@@ -45,6 +47,11 @@ export async function generateMetadata({
       },
     },
   };
+}
+
+// 解決 cacheComponents 啟用時，locale 無法正確產生靜態頁面的問題
+export async function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
 }
 
 export default async function RootLayout({

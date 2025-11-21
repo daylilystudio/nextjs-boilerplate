@@ -2,7 +2,7 @@
 
 ## 主要功能 (Features)
 
-- **框架:** [Next.js](https://nextjs.org/) 16+ (App Router)
+- **框架:** [Next.js](https://nextjs.org/) 16+ (App Router + Cache Components)
 - **國際化 (i18n):** 使用 [`next-intl`](https://next-intl-docs.vercel.app/) 進行路由、翻譯和本地化處理。
 - **身份驗證:** 使用 [`next-auth`](https://next-auth.js.org/) 進行 Google 登入。
 - **ORM:** 使用 Prisma 操作 Postgres 資料庫 (可輕鬆整合 Vercel Postgres)。

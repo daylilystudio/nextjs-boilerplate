@@ -1,6 +1,15 @@
+'use client';
+import { useSearchParams } from 'next/navigation';
+
 import Modal from '@/components/Modal';
+import { MODAL_PARAM } from '@/utils/const';
 
 export default function Example() {
+  const searchParams = useSearchParams();
+  const modal = searchParams.get(MODAL_PARAM);
+
+  if (modal !== 'modal-example') return null;
+
   return (
     <Modal>
       <h2 className="text-2xl font-semibold mb-4 text-gray-600">

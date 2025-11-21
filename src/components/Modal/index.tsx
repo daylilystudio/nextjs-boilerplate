@@ -9,6 +9,8 @@ import {
   useState,
 } from 'react';
 
+import { MODAL_PARAM } from '@/utils/const';
+
 const MAX_WIDTH_CLASSES = {
   sm: 'max-w-xl',
   md: 'max-w-2xl',
@@ -39,7 +41,7 @@ export default function Modal({
     // Wait for animation to finish before DOM removal
     setTimeout(() => {
       const params = new URLSearchParams(searchParams.toString());
-      params.delete('showModal');
+      params.delete(MODAL_PARAM);
       router.push(`${pathname}?${params.toString()}`, { scroll: false });
     }, ANIMATION_DURATION);
   }, [searchParams, pathname, router]);
