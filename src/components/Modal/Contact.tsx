@@ -1,20 +1,17 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import Modal from '@/components/Modal';
 import { MODAL_PARAM } from '@/utils/const';
 
-export default function ContactModal() {
+function ContactForm() {
   const t = useTranslations('contact');
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const isOpen = searchParams.get(MODAL_PARAM) === 'modal-contact';
 
   const [isSubmit, setIsSubmit] = useState(false);
   const [failedMessage, setFailedMessage] = useState('');
@@ -28,7 +25,9 @@ export default function ContactModal() {
     message: z.string().min(1, { message: t('required') }),
     honeyPot: z.string().optional(), // 防止機器人
   });
+
   type FormData = z.infer<typeof schema>;
+
   const {
     register,
     handleSubmit,
@@ -37,15 +36,6 @@ export default function ContactModal() {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        setIsSubmit(false);
-        setFailedMessage('');
-      }, 0);
-    }
-  }, [isOpen]);
-  if (!isOpen) return null;
 
   const onSubmit = async (data: FormData) => {
     if (data.honeyPot) {
@@ -141,4 +131,13 @@ export default function ContactModal() {
       )}
     </Modal>
   );
+}
+
+export default function ContactModalWrapper() {
+  const searchParams = useSearchParams();
+  const modal = searchParams.get(MODAL_PARAM);
+
+  if (modal !== 'modal-contact') return null;
+
+  return <ContactForm />;
 }
