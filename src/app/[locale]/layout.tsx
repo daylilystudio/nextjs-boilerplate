@@ -10,7 +10,7 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 
-import FacebookSDK from '@/components/FacebookSDK';
+// import FacebookSDK from '@/components/FacebookSDK';
 import { NextIntlProvider } from '@/components/NextIntlProvider';
 import { locales } from '@/i18n/routing';
 import { SITE_URL } from '@/utils/const';
@@ -81,7 +81,8 @@ export default async function RootLayout({
       >
         {/* TO DO: Replace with your GTM ID */}
         <GoogleTagManager gtmId="GTM-XXXXXX" />
-        <FacebookSDK />
+        {/* TO DO: Replace with your Facebook App ID */}
+        {/* <FacebookSDK /> */}
         <NextIntlProvider
           locale={locale}
           messages={messages}
