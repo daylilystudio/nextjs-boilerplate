@@ -52,13 +52,9 @@ export async function getSession() {
 }
 
 export async function getIsLogin() {
-  let sessionToken: RequestCookie | undefined;
-  const getCookies = await cookies();
-  for (const cookie of getCookies.getAll()) {
-    if (cookie.name.match(/next-auth.session-token/)) {
-      sessionToken = cookie;
-      break;
-    }
-  }
+  const cookieStore = await cookies();
+  const sessionToken =
+    cookieStore.get('__Secure-next-auth.session-token') ||
+    cookieStore.get('next-auth.session-token');
   return !!sessionToken?.value;
 }
