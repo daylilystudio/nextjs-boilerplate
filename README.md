@@ -1,6 +1,6 @@
 # Next.js 模板
 
-## 主要功能 (Features)
+## 🛠️ 主要功能 (Features)
 
 - **框架:** [Next.js](https://nextjs.org/) 16+ (App Router + Cache Components)
 - **國際化 (i18n):** 使用 [`next-intl`](https://next-intl-docs.vercel.app/) 進行路由、翻譯和本地化處理。
@@ -12,7 +12,7 @@
 - **圖片優化:** 配置 Next.js Image 元件以使用外部圖片來源 (例如 Google 頭像)。
 - **程式碼風格:** 搭配 ESLint, Prettier extensions 即可儲存時自動格式化。
 
-## 快速開始 (Getting Started)
+## 🚀 快速開始 (Getting Started)
 
 ### 1. 環境準備
 
@@ -43,6 +43,12 @@ GOOGLE_CLIENT_SECRET=
 # 使用 openssl rand -base64 32 指令產生 NEXTAUTH_SECRET
 NEXTAUTH_SECRET=
 NEXTAUTH_URL=http://localhost:3000
+
+# Google 表單設定
+GOOGLE_FORM_ID=
+GOOGLE_FORM_NAME=
+GOOGLE_FORM_EMAIL=
+GOOGLE_FORM_MESSAGE=
 ```
 
 ### 4. generate prisma client
@@ -59,7 +65,7 @@ npm run dev
 
 打開瀏覽器並訪問 `http://localhost:3000`。
 
-## 專案結構概覽
+## 📁 專案結構
 
 ```
 /
@@ -82,7 +88,7 @@ npm run dev
 └── README.md
 ```
 
-## 核心概念
+## 📚 核心概念
 
 ### 國際化 (i18n)
 
@@ -107,6 +113,15 @@ npm run dev
 - 資料庫模型定義在 `prisma/schema.prisma` 檔案中。
 - 如有修改 `schema.prisma` 後，執行 `npx prisma migrate dev --name "修改內容描述"` 建立資料庫遷移檔案並更新資料庫結構，並執行 `npx prisma generate` 來更新 Prisma Client。
 
-## 部署 (Deployment)
+### Modal
+
+- Modal 的開啟方式為在 URL 中加入 `?modal={modalName}`，即可開啟對應的 Modal。
+- 關閉可使用 `router.push('/', { scroll: false })`。
+
+### 寄信表單
+
+- 串接 Google 表單當資料庫，寄送後可在 Google 表單中查看。
+
+## 🚢 部署 (Deployment)
 
 使用 Vercel 進行部署，連結專案後使用 `git push` 即可自動部署

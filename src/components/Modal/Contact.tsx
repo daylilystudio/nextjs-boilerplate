@@ -1,15 +1,14 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import Modal from '@/components/Modal';
-import { MODAL_PARAM } from '@/utils/const';
 
-function ContactForm() {
+export default function Contact() {
   const t = useTranslations('contact');
   const router = useRouter();
 
@@ -85,7 +84,7 @@ function ContactForm() {
       ) : (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-6 p-8"
+          className="flex flex-col gap-4 p-10"
         >
           {(['name', 'email', 'message'] as const).map((field) => (
             <div className="relative flex flex-col gap-2" key={field}>
@@ -131,13 +130,4 @@ function ContactForm() {
       )}
     </Modal>
   );
-}
-
-export default function ContactModalWrapper() {
-  const searchParams = useSearchParams();
-  const modal = searchParams.get(MODAL_PARAM);
-
-  if (modal !== 'modal-contact') return null;
-
-  return <ContactForm />;
 }

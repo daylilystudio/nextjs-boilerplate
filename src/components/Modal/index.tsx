@@ -18,7 +18,7 @@ const MAX_WIDTH_CLASSES = {
   xl: 'max-w-4xl',
 };
 type ModalSize = keyof typeof MAX_WIDTH_CLASSES;
-const ANIMATION_DURATION = 500;
+const ANIMATION_DURATION = 300;
 
 export default function Modal({
   title,
@@ -94,7 +94,7 @@ export default function Modal({
       >
         <button
           onClick={onDismiss}
-          className="absolute cursor-pointer top-0 right-0 px-2.5 text-gray-300 hover:text-gray-400"
+          className="absolute cursor-pointer top-1 right-0 px-2.5 text-gray-300 hover:text-gray-400"
         >
           <span className="text-3xl">×</span>
         </button>
