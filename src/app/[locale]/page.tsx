@@ -6,7 +6,12 @@ import Contact from '@/components/Modal/Contact';
 import Profile from '@/components/Profile';
 import { MODAL_PARAM } from '@/utils/const';
 
-async function ContactModal({ modal }: { modal: Promise<string> }) {
+async function ContactModal({
+  modal,
+}: {
+  modal: Promise<string | string[] | undefined>;
+}) {
+  'use cache: private';
   const modalValue = await modal;
   if (modalValue !== 'contact') return null;
   return <Contact />;
@@ -15,7 +20,7 @@ async function ContactModal({ modal }: { modal: Promise<string> }) {
 export default async function Home({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] }>;
 }) {
   const modal = searchParams.then((sp) => sp[MODAL_PARAM]);
   return (
