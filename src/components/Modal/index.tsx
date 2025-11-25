@@ -12,7 +12,6 @@ const MAX_WIDTH_CLASSES = {
   xl: 'max-w-4xl',
 };
 type ModalSize = keyof typeof MAX_WIDTH_CLASSES;
-const ANIMATION_DURATION = 500;
 
 export default function Modal({
   title,
@@ -38,20 +37,32 @@ export default function Modal({
   const searchParams = useSearchParams();
 
   // Update URL when modal opens/closes
+  const hasSetParam = useRef(false);
   useEffect(() => {
     if (!searchParamName) return;
+
     const params = new URLSearchParams(searchParams.toString());
     const currentParam = params.get(MODAL_PARAM);
-    if (isOpen && currentParam !== searchParamName) {
-      params.set(MODAL_PARAM, searchParamName);
-      router.push(`${pathname}?${params.toString()}`, { scroll: false });
-    } else if (!isOpen && currentParam === searchParamName) {
-      params.delete(MODAL_PARAM);
-      router.push(`${pathname}?${params.toString()}`, { scroll: false });
+
+    if (isOpen) {
+      // Modal is opening - set the param
+      if (hasSetParam.current) return;
+      if (currentParam !== searchParamName) {
+        params.set(MODAL_PARAM, searchParamName);
+        router.push(`${pathname}?${params.toString()}`, { scroll: false });
+        hasSetParam.current = true;
+      }
+    } else {
+      // Modal is closing - remove the param
+      hasSetParam.current = false;
+      if (currentParam === searchParamName) {
+        params.delete(MODAL_PARAM);
+        router.push(`${pathname}?${params.toString()}`, { scroll: false });
+      }
     }
   }, [isOpen, searchParamName, pathname, router, searchParams]);
 
-  // Esc key handler & body's overflow
+  // Esc key handler & body's overflow & focus management
   useEffect(() => {
     const handleKeydown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -59,12 +70,15 @@ export default function Modal({
       }
     };
     document.addEventListener('keydown', handleKeydown);
+    const originalOverflow = document.body.style.overflow;
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      // Focus the modal overlay when it opens
+      overlay.current?.focus();
     }
     return () => {
       document.removeEventListener('keydown', handleKeydown);
-      document.body.style.overflow = '';
+      document.body.style.overflow = originalOverflow;
     };
   }, [onClose, isOpen]);
 
@@ -88,11 +102,12 @@ export default function Modal({
   return (
     <div
       ref={overlay}
-      className={`fixed inset-0 z-50 bg-black/75 flex items-center justify-center transition-opacity duration-${ANIMATION_DURATION} ${overlayClasses}`}
+      tabIndex={-1}
+      className={`fixed inset-0 z-50 bg-black/75 flex items-center justify-center transition-opacity duration-300 ${overlayClasses}`}
       onClick={onClick}
     >
       <div
-        className={`${className} relative bg-white rounded-lg shadow-xl mx-4 flex flex-col max-h-[calc(100vh-theme(spacing.8))] w-full ${MAX_WIDTH_CLASSES[size]} transition-all duration-${ANIMATION_DURATION} ${contentClasses}`}
+        className={`${className} relative bg-white rounded-lg shadow-xl mx-4 flex flex-col max-h-[calc(100vh-theme(spacing.8))] w-full ${MAX_WIDTH_CLASSES[size]} transition-all duration-300 ${contentClasses}`}
       >
         <button
           onClick={onClose}

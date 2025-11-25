@@ -1,11 +1,13 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import Modal from '@/components/Modal';
+import { MODAL_PARAM } from '@/utils/const';
 
 export default function Contact() {
   const t = useTranslations('contact');
@@ -13,6 +15,13 @@ export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [failedMessage, setFailedMessage] = useState('');
+
+  // Sync modal state with URL param
+  const searchParams = useSearchParams();
+  const modalParam = searchParams.get(MODAL_PARAM);
+  useEffect(() => {
+    setIsModalOpen(modalParam === 'contact');
+  }, [modalParam]);
 
   const schema = z.object({
     name: z.string().min(1, { message: t('required') }),
@@ -71,7 +80,7 @@ export default function Contact() {
     // 防止正在關閉 Modal 時，突然從成功畫面跳成留言畫面
     setTimeout(() => {
       setIsSubmit(false);
-    }, 500);
+    }, 300);
   };
 
   return (
