@@ -38,6 +38,8 @@ export default function Modal({
 
   // Update URL when modal opens/closes
   const hasSetParam = useRef(false);
+  const wasOpen = useRef(false);
+
   useEffect(() => {
     if (!searchParamName) return;
 
@@ -46,19 +48,21 @@ export default function Modal({
 
     if (isOpen) {
       // Modal is opening - set the param
+      wasOpen.current = true;
       if (hasSetParam.current) return;
       if (currentParam !== searchParamName) {
         params.set(MODAL_PARAM, searchParamName);
         router.push(`${pathname}?${params.toString()}`, { scroll: false });
         hasSetParam.current = true;
       }
-    } else {
-      // Modal is closing - remove the param
+    } else if (wasOpen.current) {
+      // Modal is closing (and was previously open) - remove the param
       hasSetParam.current = false;
       if (currentParam === searchParamName) {
         params.delete(MODAL_PARAM);
         router.push(`${pathname}?${params.toString()}`, { scroll: false });
       }
+      wasOpen.current = false;
     }
   }, [isOpen, searchParamName, pathname, router, searchParams]);
 
@@ -73,8 +77,6 @@ export default function Modal({
     const originalOverflow = document.body.style.overflow;
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      // Focus the modal overlay when it opens
-      overlay.current?.focus();
     }
     return () => {
       document.removeEventListener('keydown', handleKeydown);
