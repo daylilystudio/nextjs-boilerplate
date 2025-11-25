@@ -1,7 +1,7 @@
 'use cache';
 import '../globals.css';
 
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Zen_Maru_Gothic } from 'next/font/google';
 import {
   getMessages,
   getTimeZone,
@@ -13,14 +13,10 @@ import { NextIntlProvider } from '@/components/NextIntlProvider';
 import { locales } from '@/i18n/routing';
 import { SITE_URL } from '@/utils/const';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const zenMaruGothic = Zen_Maru_Gothic({
+  variable: '--font-zen-maru-gothic',
   subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  weight: ['300', '400', '500', '700', '900'],
 });
 
 export async function generateMetadata({
@@ -70,7 +66,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${zenMaruGothic.variable} antialiased`}
       >
         <NextIntlProvider
           locale={locale}

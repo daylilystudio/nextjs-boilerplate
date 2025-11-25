@@ -1,0 +1,11 @@
+{
+  "name": "Name",
+  "email": "Email",
+  "message": "Message",
+  "submit": "Submit",
+  "close": "Close",
+  "thanks": "Thank you for your message!<br/>We will get back to you soon.",
+  "required": "Required",
+  "invalid_email": "Invalid email",
+  "failed": "Failed to submit form, please try again later."
+}

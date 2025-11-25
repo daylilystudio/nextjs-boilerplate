@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 
 import LangSwitcher from '@/components/LangSwitcher';
-import Example from '@/components/Modal/Example';
+import Contact from '@/components/Modal/Contact';
 import Profile from '@/components/Profile';
 import { MODAL_PARAM } from '@/utils/const';
 
@@ -14,13 +14,13 @@ export default async function Home() {
           <Profile />
         </Suspense>
         <Link
-          href={`/?${MODAL_PARAM}=modal-example`}
+          href={`/?${MODAL_PARAM}=modal-contact`}
           className="text-blue-600 hover:underline self-center"
         >
-          View Modal Example
+          Contact Me
         </Link>
         <Suspense>
-          <Example />
+          <Contact />
         </Suspense>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">

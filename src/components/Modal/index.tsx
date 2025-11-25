@@ -21,11 +21,15 @@ type ModalSize = keyof typeof MAX_WIDTH_CLASSES;
 const ANIMATION_DURATION = 500;
 
 export default function Modal({
+  title,
   children,
   size = 'lg',
+  className,
 }: {
+  title?: string;
   children: React.ReactNode;
   size?: ModalSize;
+  className?: string;
 }) {
   const router = useRouter();
   const overlay = useRef<HTMLDivElement>(null);
@@ -56,8 +60,10 @@ export default function Modal({
       }
     };
     document.addEventListener('keydown', handleKeydown);
+    document.body.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', handleKeydown);
+      document.body.style.overflow = '';
     };
   }, [onDismiss]);
 
@@ -78,24 +84,26 @@ export default function Modal({
     : 'opacity-0 scale-75';
 
   return (
-    // Fixed overlay with Tailwind for dark background and centering
     <div
       ref={overlay}
       className={`fixed inset-0 z-50 bg-black/75 flex items-center justify-center transition-opacity duration-${ANIMATION_DURATION} ${overlayClasses}`}
       onClick={onClick}
     >
-      {/* Modal content container */}
       <div
-        className={`relative bg-white rounded-lg shadow-xl w-full p-6 mx-4 ${MAX_WIDTH_CLASSES[size]} transition-all duration-${ANIMATION_DURATION} ${contentClasses}`}
+        className={`${className} relative bg-white rounded-lg shadow-xl mx-4 flex flex-col max-h-[calc(100vh-theme(spacing.8))] w-full ${MAX_WIDTH_CLASSES[size]} transition-all duration-${ANIMATION_DURATION} ${contentClasses}`}
       >
         <button
           onClick={onDismiss}
-          className="absolute cursor-pointer top-0 right-0 px-2.5 text-gray-300 hover:text-gray-500"
+          className="absolute cursor-pointer top-0 right-0 px-2.5 text-gray-300 hover:text-gray-400"
         >
-          {/* Example Close Icon (using a simple 'X') */}
           <span className="text-3xl">×</span>
         </button>
-        {children}
+        {title && (
+          <div className="text-2xl font-semibold m-4 text-gray-600">
+            {title}
+          </div>
+        )}
+        <div className="overflow-y-auto">{children}</div>
       </div>
     </div>
   );
