@@ -1,4 +1,6 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+import { cookies } from 'next/headers';
 import { type AuthOptions, getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
@@ -47,4 +49,16 @@ export const authOptions: AuthOptions = {
 
 export async function getSession() {
   return await getServerSession(authOptions);
+}
+
+export async function getIsLogin() {
+  let sessionToken: RequestCookie | undefined;
+  const getCookies = await cookies();
+  for (const cookie of getCookies.getAll()) {
+    if (cookie.name.match(/next-auth.session-token/)) {
+      sessionToken = cookie;
+      break;
+    }
+  }
+  return !!sessionToken?.value;
 }
