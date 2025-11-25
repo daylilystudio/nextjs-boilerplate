@@ -1,5 +1,4 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { cookies } from 'next/headers';
 import { type AuthOptions, getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';

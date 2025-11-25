@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
 import Contact from '@/components/Contact';
+import FacebookLikeButton from '@/components/FacebookLikeButton';
 import LangSwitcher from '@/components/LangSwitcher';
 import Profile from '@/components/Profile';
 
@@ -14,6 +15,7 @@ export default async function Home() {
         <Suspense>
           <Contact />
         </Suspense>
+        <FacebookLikeButton />
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <LangSwitcher />

@@ -1,6 +1,7 @@
 'use cache';
 import '../globals.css';
 
+import { GoogleTagManager } from '@next/third-parties/google';
 import { Zen_Maru_Gothic } from 'next/font/google';
 import {
   getMessages,
@@ -9,6 +10,7 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 
+import FacebookSDK from '@/components/FacebookSDK';
 import { NextIntlProvider } from '@/components/NextIntlProvider';
 import { locales } from '@/i18n/routing';
 import { SITE_URL } from '@/utils/const';
@@ -31,9 +33,11 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     openGraph: {
+      locale,
       type: 'website',
       url: SITE_URL,
       title: t('title'),
+      siteName: t('title'),
       description: t('description'),
       Images: {
         url: `${SITE_URL}/og-image.png`,
@@ -41,6 +45,13 @@ export async function generateMetadata({
         height: 630,
         alt: t('title'),
       },
+    },
+    facebook: {
+      appId: 'FB_APP_ID',
+      admins: 'FB_ADMINS',
+    },
+    other: {
+      'p:domain_verify': 'PINTEREST_VERIFY',
     },
   };
 }
@@ -68,6 +79,9 @@ export default async function RootLayout({
         suppressHydrationWarning
         className={`${zenMaruGothic.variable} antialiased`}
       >
+        {/* TO DO: Replace with your GTM ID */}
+        <GoogleTagManager gtmId="GTM-XXXXXX" />
+        <FacebookSDK />
         <NextIntlProvider
           locale={locale}
           messages={messages}
