@@ -1,27 +1,19 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import Modal from '@/components/Modal';
-import { MODAL_PARAM } from '@/utils/const';
+import { useModal } from '@/hooks/useModal';
 
 export default function Contact() {
   const t = useTranslations('contact');
+  const { isOpen, open, close } = useModal('contact');
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [failedMessage, setFailedMessage] = useState('');
-
-  // Sync modal state with URL param
-  const searchParams = useSearchParams();
-  const modalParam = searchParams.get(MODAL_PARAM);
-  useEffect(() => {
-    setIsModalOpen(modalParam === 'contact');
-  }, [modalParam]);
 
   const schema = z.object({
     name: z.string().min(1, { message: t('required') }),
@@ -75,7 +67,7 @@ export default function Contact() {
   };
 
   const onClose = () => {
-    setIsModalOpen(false);
+    close();
     setFailedMessage('');
     // 防止正在關閉 Modal 時，突然從成功畫面跳成留言畫面
     setTimeout(() => {
@@ -86,13 +78,13 @@ export default function Contact() {
   return (
     <>
       <button
-        onClick={() => setIsModalOpen(true)}
-        className="text-blue-600 hover:underline self-center"
+        onClick={open}
+        className="text-blue-600 hover:underline self-center cursor-pointer"
       >
         {t('title')}
       </button>
       <Modal
-        isOpen={isModalOpen}
+        isOpen={isOpen}
         onClose={onClose}
         className="text-black font-bold text-lg"
         size="sm"

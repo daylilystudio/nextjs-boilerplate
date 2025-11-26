@@ -12,6 +12,9 @@
 - **圖片優化:** 配置 Next.js Image 元件以使用外部圖片來源 (例如 Google 頭像)。
 - **程式碼風格:** 搭配 ESLint, Prettier extensions 即可儲存時自動格式化。
 
+&nbsp;  
+&nbsp;
+
 ## 🚀 快速開始 (Getting Started)
 
 ### 1. 環境準備
@@ -65,6 +68,9 @@ npm run dev
 
 打開瀏覽器並訪問 `http://localhost:3000`。
 
+&nbsp;  
+&nbsp;
+
 ## 📁 專案結構
 
 ```
@@ -87,6 +93,9 @@ npm run dev
 ├── next.config.ts          # Next.js 主要設定檔
 └── README.md
 ```
+
+&nbsp;  
+&nbsp;
 
 ## 📚 核心概念
 
@@ -128,12 +137,44 @@ npm run dev
 
 ### Modal
 
-- Modal 的開啟方式為在 URL 中加入 `?modal={modalName}`，即可開啟對應的 Modal。
-- 關閉可使用 `router.push('/', { scroll: false })`。
+使用 `useModal` Hook 來控制 Modal 的開啟/關閉狀態：
+
+```tsx
+// 基本用法
+const { isOpen, open, close, toggle } = useModal();
+
+// 如果需要與 URL 同步（可分享連結），傳入 searchParamName
+const { isOpen, open, close, toggle } = useModal('contact');
+```
+
+**範例：**
+
+```tsx
+function ContactModal() {
+  const modal = useModal('contact'); // 傳入 'contact' 會同步 URL 參數
+  return (
+    <>
+      <button onClick={modal.open}>聯絡我們</button>
+      <Modal
+        isOpen={modal.isOpen}
+        onClose={modal.close}
+        searchParamName="contact" // 需要與 useModal 參數一致
+      >
+        {/* Modal 內容 */}
+      </Modal>
+    </>
+  );
+}
+```
+
+當使用者訪問 `?modal=contact` 時，Modal 會自動開啟。
 
 ### 寄信表單
 
 - 串接 Google 表單當資料庫，寄送後可在 Google 表單中查看。
+
+&nbsp;  
+&nbsp;
 
 ## 🚢 部署 (Deployment)
 
