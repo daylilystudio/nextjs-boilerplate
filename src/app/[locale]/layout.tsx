@@ -1,6 +1,7 @@
 'use cache';
 import '../globals.css';
 
+import { AppProgressProvider } from '@bprogress/next';
 import { GoogleTagManager } from '@next/third-parties/google';
 import { Zen_Maru_Gothic } from 'next/font/google';
 import {
@@ -88,7 +89,14 @@ export default async function RootLayout({
           messages={messages}
           timeZone={timeZone}
         >
-          {children}
+          <AppProgressProvider
+            height="4px"
+            color="#37ccd4"
+            options={{ showSpinner: false }}
+            shallowRouting
+          >
+            {children}
+          </AppProgressProvider>
         </NextIntlProvider>
       </body>
     </html>

@@ -1,8 +1,10 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { MouseEventHandler, useCallback, useEffect, useRef } from 'react';
 
+import { useProgressRouter } from '@/hooks/useProgressRouter';
+import { usePathname } from '@/i18n/navigation';
 import { MODAL_PARAM } from '@/utils/const';
 
 const MAX_WIDTH_CLASSES = {
@@ -30,7 +32,7 @@ export default function Modal({
   isOpen: boolean;
   onClose: () => void;
 }) {
-  const router = useRouter();
+  const router = useProgressRouter();
   const overlay = useRef<HTMLDivElement>(null);
 
   const pathname = usePathname();

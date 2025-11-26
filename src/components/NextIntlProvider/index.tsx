@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { SessionProvider } from "next-auth/react";
-import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
+import { SessionProvider } from 'next-auth/react';
+import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl';
 
 type Props = {
   children: React.ReactNode;
@@ -10,10 +10,19 @@ type Props = {
   timeZone: string;
 };
 
-export function NextIntlProvider({ children, locale, messages, timeZone }: Props) {
+export function NextIntlProvider({
+  children,
+  locale,
+  messages,
+  timeZone,
+}: Props) {
   return (
     <SessionProvider basePath="/api/auth">
-      <NextIntlClientProvider locale={locale} messages={messages} timeZone={timeZone}>
+      <NextIntlClientProvider
+        locale={locale}
+        messages={messages}
+        timeZone={timeZone}
+      >
         {children}
       </NextIntlClientProvider>
     </SessionProvider>
