@@ -15,7 +15,7 @@ export default async function Profile() {
   return (
     <>
       {isLogin && (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 h-8">
           <Image
             className="rounded-full"
             width={32}

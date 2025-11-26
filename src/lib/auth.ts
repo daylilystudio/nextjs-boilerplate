@@ -50,6 +50,7 @@ export async function getSession() {
   return await getServerSession(authOptions);
 }
 
+// 只需判斷是否登入時可用，速度較快
 export async function getIsLogin() {
   const cookieStore = await cookies();
   const sessionToken =
