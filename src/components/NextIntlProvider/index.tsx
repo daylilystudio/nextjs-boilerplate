@@ -1,5 +1,6 @@
 'use client';
 
+import { ProgressProvider } from '@bprogress/next/app';
 import { SessionProvider } from 'next-auth/react';
 import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl';
 
@@ -23,7 +24,14 @@ export function NextIntlProvider({
         messages={messages}
         timeZone={timeZone}
       >
-        {children}
+        <ProgressProvider
+          height="4px"
+          color="#37ccd4"
+          options={{ showSpinner: false }}
+          shallowRouting
+        >
+          {children}
+        </ProgressProvider>
       </NextIntlClientProvider>
     </SessionProvider>
   );
