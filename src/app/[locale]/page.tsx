@@ -1,39 +1,10 @@
-import Image from 'next/image';
-import { getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
 
 import Contact from '@/components/Contact';
 import FacebookLikeButton from '@/components/FacebookLikeButton';
 import LangSwitcher from '@/components/LangSwitcher';
 import LoginButton from '@/components/LoginButton';
-// import Profile from '@/components/Profile';
-import { getSession } from '@/lib/auth';
-
-async function Profile() {
-  'use cache: private';
-  const session = await getSession();
-  const t = await getTranslations();
-
-  return (
-    <>
-      {session && (
-        <div className="flex items-center gap-3 h-8">
-          {session?.user?.image && (
-            <Image
-              className="rounded-full"
-              width={32}
-              height={32}
-              src={session.user.image}
-              alt={session.user.name || ''}
-            />
-          )}
-          {t('home.greet') + session?.user?.email}
-        </div>
-      )}
-      <LoginButton isLogin={!!session} />
-    </>
-  );
-}
+import Profile from '@/components/Profile';
 
 export default function Home() {
   return (
@@ -42,6 +13,7 @@ export default function Home() {
         <Suspense>
           <Profile />
         </Suspense>
+        <LoginButton />
         <Suspense>
           <Contact />
         </Suspense>
