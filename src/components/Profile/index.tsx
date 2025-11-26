@@ -3,18 +3,17 @@
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 
-import { getIsLogin, getSession } from '@/lib/auth';
+import { getSession } from '@/lib/auth';
 
 import LoginButton from '../LoginButton';
 
 export default async function Profile() {
   const session = await getSession();
-  const isLogin = await getIsLogin();
   const t = await getTranslations();
 
   return (
     <>
-      {isLogin && (
+      {session && (
         <div className="flex items-center gap-3 h-8">
           <Image
             className="rounded-full"
@@ -26,7 +25,7 @@ export default async function Profile() {
           {t('home.greet') + session?.user?.email}
         </div>
       )}
-      <LoginButton isLogin={isLogin} />
+      <LoginButton isLogin={!!session} />
     </>
   );
 }

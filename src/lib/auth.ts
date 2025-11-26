@@ -19,6 +19,9 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  session: {
+    strategy: 'jwt', // 用 JWT 就不用去 database 請求資料
+  },
   callbacks: {
     // next-auth 預設不完全信任第三方 OAuth 提供者回傳的「信箱已驗證」狀態。所以要手動更新
     async signIn({ user, account, profile }) {
@@ -35,9 +38,24 @@ export const authOptions: AuthOptions = {
       }
       return true;
     },
-    async session({ session, user }) {
+    // JWT Callback: 當使用 JWT 策略時，將 user.id 放入 token
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    // Session Callback: 支援 JWT 和 Database 兩種策略
+    async session({ session, token, user }) {
       if (session.user) {
-        (session.user as { id: string }).id = user.id;
+        // 如果是 JWT 策略，ID 在 token 中
+        if (token && token.id) {
+          (session.user as { id: string }).id = token.id as string;
+        }
+        // 如果是 Database 策略，ID 在 user 中
+        else if (user && user.id) {
+          (session.user as { id: string }).id = user.id;
+        }
       }
       return session;
     },
@@ -48,13 +66,4 @@ export const authOptions: AuthOptions = {
 
 export async function getSession() {
   return await getServerSession(authOptions);
-}
-
-// 只需判斷是否登入時可用，速度較快
-export async function getIsLogin() {
-  const cookieStore = await cookies();
-  const sessionToken =
-    cookieStore.get('__Secure-next-auth.session-token') ||
-    cookieStore.get('next-auth.session-token');
-  return !!sessionToken?.value;
 }
