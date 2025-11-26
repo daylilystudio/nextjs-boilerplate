@@ -26,7 +26,7 @@ export function NextIntlProvider({
       >
         <ProgressProvider
           height="4px"
-          color="#37ccd4"
+          color="rgba(255, 255, 255, 0.25)"
           options={{ showSpinner: false }}
           shallowRouting
         >
