@@ -56,6 +56,8 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>) {
 }
 
 // 解決 cacheComponents 啟用時，locale 無法正確產生靜態頁面的問題
+// https://github.com/aurorascharff/next-intl-cache-components
+// https://aurorascharff.no/posts/implementing-nextjs-16-use-cache-with-next-intl-internationalization/
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
