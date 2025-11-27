@@ -3,6 +3,8 @@ import '../globals.css';
 
 import { GoogleTagManager } from '@next/third-parties/google';
 import { Zen_Maru_Gothic } from 'next/font/google';
+import { notFound } from 'next/navigation';
+import { hasLocale } from 'next-intl';
 import {
   getMessages,
   getTimeZone,
@@ -13,6 +15,7 @@ import {
 // import FacebookSDK from '@/components/FacebookSDK';
 import { NextIntlProvider } from '@/components/NextIntlProvider';
 import { locales } from '@/i18n/routing';
+import { routing } from '@/i18n/routing';
 import { SITE_URL } from '@/utils/const';
 
 const zenMaruGothic = Zen_Maru_Gothic({
@@ -21,11 +24,7 @@ const zenMaruGothic = Zen_Maru_Gothic({
   weight: ['300', '400', '500', '700', '900'],
 });
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export async function generateMetadata({ params }: LayoutProps<'/[locale]'>) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'common' });
   return {
@@ -64,12 +63,15 @@ export async function generateStaticParams() {
 export default async function RootLayout({
   children,
   params,
-}: Readonly<{
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}>) {
+}: LayoutProps<'/[locale]'>) {
   const { locale } = await params;
+  // Ensure that the incoming `locale` is valid
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+  // Enable static rendering
   setRequestLocale(locale);
+
   const messages = await getMessages();
   const timeZone = await getTimeZone();
 

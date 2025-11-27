@@ -1,4 +1,6 @@
 'use cache: private';
+// 個人資訊似乎還沒有快取功能：
+// https://github.com/vercel/next.js/issues/85672
 
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
@@ -11,14 +13,18 @@ export default async function Profile() {
 
   return (
     <div className="flex items-center gap-3 h-8">
-      <Image
-        className="rounded-full"
-        width={32}
-        height={32}
-        src={session?.user?.image || ''}
-        alt={session?.user?.name || ''}
-      />
-      {t('home.greet') + session?.user?.email}
+      {session && (
+        <>
+          <Image
+            className="rounded-full"
+            width={32}
+            height={32}
+            src={session?.user?.image || ''}
+            alt={session?.user?.name || ''}
+          />
+          {t('home.greet') + session?.user?.email}
+        </>
+      )}
     </div>
   );
 }
