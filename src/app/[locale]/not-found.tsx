@@ -7,7 +7,7 @@ import type { Locale } from '@/i18n/routing';
 export default async function NotFoundPage({
   params,
 }: {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
