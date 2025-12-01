@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
     ],
   },
   cacheComponents: true,
+  cacheLife: {
+    next: {
+      revalidate: 3600,
+    },
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();
