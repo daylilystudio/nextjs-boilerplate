@@ -2,5 +2,7 @@
   "title": "歡迎光臨",
   "description": "歡迎光臨家裡的首頁訊息。",
   "signin": "登入",
-  "signout": "登出"
+  "signout": "登出",
+  "not_found": "找不到頁面",
+  "back_to_home": "返回首頁"
 }

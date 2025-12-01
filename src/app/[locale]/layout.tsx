@@ -2,7 +2,6 @@
 import '../globals.css';
 
 import { GoogleTagManager } from '@next/third-parties/google';
-import { Zen_Maru_Gothic } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import {
@@ -16,13 +15,7 @@ import {
 import { NextIntlProvider } from '@/components/NextIntlProvider';
 import { locales } from '@/i18n/routing';
 import { routing } from '@/i18n/routing';
-import { SITE_URL } from '@/utils/const';
-
-const zenMaruGothic = Zen_Maru_Gothic({
-  variable: '--font-zen-maru-gothic',
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '700', '900'],
-});
+import { SITE_URL, zenMaruGothic } from '@/utils/const';
 
 export async function generateMetadata({ params }: LayoutProps<'/[locale]'>) {
   const { locale } = await params;
@@ -78,11 +71,8 @@ export default async function RootLayout({
   const timeZone = await getTimeZone();
 
   return (
-    <html lang={locale}>
-      <body
-        suppressHydrationWarning
-        className={`${zenMaruGothic.variable} antialiased`}
-      >
+    <html lang={locale} className={`${zenMaruGothic.variable} antialiased`}>
+      <body suppressHydrationWarning>
         {/* TO DO: Replace with your GTM ID */}
         <GoogleTagManager gtmId="GTM-XXXXXX" />
         {/* TO DO: Replace with your Facebook App ID */}
