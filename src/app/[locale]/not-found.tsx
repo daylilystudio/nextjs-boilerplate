@@ -1,12 +1,10 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import NotFound from '@/components/NotFound';
 
 // Note that `app/[locale]/[...rest]/page.tsx` is necessary for this page to render.
-export default function NotFoundPage() {
-  const t = useTranslations('common');
+export default async function NotFoundPage() {
+  const t = await getTranslations('common');
 
   return (
     <NotFound
