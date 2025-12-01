@@ -2,7 +2,5 @@
   "title": "Welcome",
   "description": "A welcoming message displayed on the homepage.",
   "signin": "Sign In",
-  "signout": "Sign Out",
-  "not_found": "Not Found",
-  "back_to_home": "Back to Home"
+  "signout": "Sign Out"
 }

@@ -11,7 +11,7 @@ export default function GlobalNotFound() {
   return (
     <html lang="en" className={`${zenMaruGothic.variable} antialiased`}>
       <body>
-        <NotFound notFoundText="Page not found" backToHomeText="Back to Home" />
+        <NotFound lng="en" />
       </body>
     </html>
   );
