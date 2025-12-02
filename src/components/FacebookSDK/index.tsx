@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 declare global {
   interface Window {
-    fbAsyncInit?: () => void;
+    fbSdkLoaded?: boolean;
     FB?: {
       init: (params: {
         appId: string;
@@ -30,8 +30,10 @@ export default function FacebookSDK() {
         appId: '', // TO DO: Replace with your Facebook App ID
         autoLogAppEvents: true,
         xfbml: true,
-        version: 'v21.0',
+        version: 'v24.0',
       });
+      window.fbSdkLoaded = true;
+      window.dispatchEvent(new Event('fb-sdk-ready'));
     };
 
     // Load the SDK script
