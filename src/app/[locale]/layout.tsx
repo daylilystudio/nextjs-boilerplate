@@ -75,13 +75,13 @@ export default async function RootLayout({
       <body suppressHydrationWarning>
         {/* TO DO: Replace with your GTM ID */}
         <GoogleTagManager gtmId="GTM-XXXXXX" />
-        {/* TO DO: Replace with your Facebook App ID */}
-        {/* <FacebookSDK /> */}
         <NextIntlProvider
           locale={locale}
           messages={messages}
           timeZone={timeZone}
         >
+          {/* TO DO: Replace with your Facebook App ID */}
+          {/* <FacebookSDK /> */}
           {children}
         </NextIntlProvider>
       </body>

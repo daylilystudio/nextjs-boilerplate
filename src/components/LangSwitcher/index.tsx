@@ -4,7 +4,12 @@ import { useLocale } from 'next-intl';
 import { Fragment } from 'react/jsx-runtime';
 
 import { Link, usePathname } from '@/i18n/navigation';
-import { locales, localesMap } from '@/i18n/routing';
+import { Locale, locales } from '@/i18n/routing';
+
+const localesMap: { [key in Locale]: string } = {
+  [Locale.ZH_TW]: '繁體中文',
+  [Locale.EN]: 'English',
+};
 
 export default function LangSwitcher() {
   const pathname = usePathname();

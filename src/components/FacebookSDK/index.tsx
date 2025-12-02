@@ -1,6 +1,14 @@
 'use client';
 
+import { useLocale } from 'next-intl';
 import { useEffect } from 'react';
+
+import { Locale } from '@/i18n/routing';
+
+const fbLocaleMap = {
+  [Locale.ZH_TW]: 'zh_TW',
+  [Locale.EN]: 'en_US',
+};
 
 declare global {
   interface Window {
@@ -23,6 +31,8 @@ declare global {
 }
 
 export default function FacebookSDK() {
+  const locale = useLocale() as Locale;
+
   useEffect(() => {
     // Load the Facebook SDK asynchronously
     window.fbAsyncInit = function () {
@@ -42,10 +52,19 @@ export default function FacebookSDK() {
       if (d.getElementById(id)) return;
       const js = d.createElement(s) as HTMLScriptElement;
       js.id = id;
-      js.src = 'https://connect.facebook.net/en_US/sdk.js';
+      js.src = `https://connect.facebook.net/${fbLocaleMap[locale]}/sdk.js`;
       fjs.parentNode?.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
-  }, []);
+
+    return () => {
+      const script = document.getElementById('facebook-jssdk');
+      if (script) {
+        script.remove();
+      }
+      delete window.FB;
+      window.fbSdkLoaded = false;
+    };
+  }, [locale]);
 
   return <div id="fb-root" />;
 }
