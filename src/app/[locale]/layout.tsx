@@ -72,7 +72,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={`${zenMaruGothic.variable} antialiased`}>
-      <body>
+      <body suppressHydrationWarning>
         {/* TO DO: Replace with your GTM ID */}
         <GoogleTagManager gtmId="GTM-XXXXXX" />
         {/* TO DO: Replace with your Facebook App ID */}

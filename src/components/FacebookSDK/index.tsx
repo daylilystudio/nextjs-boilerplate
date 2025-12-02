@@ -45,5 +45,5 @@ export default function FacebookSDK() {
     })(document, 'script', 'facebook-jssdk');
   }, []);
 
-  return null;
+  return <div id="fb-root" />;
 }
