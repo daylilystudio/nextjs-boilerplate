@@ -14,9 +14,7 @@ export default function Home() {
           <Profile />
         </Suspense>
         <LoginButton />
-        <Suspense>
-          <Contact />
-        </Suspense>
+        <Contact />
         <FacebookShareButton />
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
