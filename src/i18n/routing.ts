@@ -5,7 +5,7 @@ export enum Locale {
   EN = 'en',
 }
 export const locales = [Locale.ZH_TW, Locale.EN];
-export const defaultLocale = locales[0];
+export const defaultLocale = Locale.ZH_TW;
 export const localePrefix = 'as-needed';
 
 export const routing = defineRouting({

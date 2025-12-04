@@ -13,7 +13,6 @@ import {
 
 // import FacebookSDK from '@/components/FacebookSDK';
 import { NextIntlProvider } from '@/components/NextIntlProvider';
-import { locales } from '@/i18n/routing';
 import { routing } from '@/i18n/routing';
 import { SITE_URL, zenMaruGothic } from '@/utils/const';
 
@@ -52,7 +51,7 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>) {
 // https://github.com/aurorascharff/next-intl-cache-components
 // https://aurorascharff.no/posts/implementing-nextjs-16-use-cache-with-next-intl-internationalization/
 export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return routing.locales.map((locale) => ({ locale }));
 }
 
 export default async function RootLayout({
