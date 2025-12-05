@@ -5,6 +5,8 @@ import prettierConfig from 'eslint-config-prettier';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
@@ -12,10 +14,9 @@ const eslintConfig = defineConfig([
     rules: {
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
+      'react-hooks/set-state-in-effect': 'off',
     },
   },
-  ...nextVitals,
-  ...nextTs,
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
