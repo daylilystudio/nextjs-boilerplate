@@ -61,8 +61,7 @@ export default function Modal({
       // Modal is closing (and was previously open) - remove the param
       hasSetParam.current = false;
       if (currentParam === searchParamName) {
-        params.delete(MODAL_PARAM);
-        router.push(`${pathname}?${params.toString()}`, { scroll: false });
+        router.push(pathname, { scroll: false });
       }
       wasOpen.current = false;
     }
@@ -111,11 +110,11 @@ export default function Modal({
       onClick={onClick}
     >
       <div
-        className={`${className} relative bg-white rounded-lg shadow-xl mx-4 flex flex-col max-h-[calc(100vh-theme(spacing.8))] w-full ${MAX_WIDTH_CLASSES[size]} transition-all duration-300 ${contentClasses}`}
+        className={`${className} relative bg-white rounded-lg shadow-xl flex flex-col max-h-[calc(100vh-theme(spacing.8))] w-[calc(100vw-theme(spacing.8))] ${MAX_WIDTH_CLASSES[size]} transition-all duration-300 ${contentClasses}`}
       >
         <button
           onClick={onClose}
-          className="absolute cursor-pointer top-1 right-0 px-2.5 text-gray-300 hover:text-gray-400"
+          className="absolute z-5 cursor-pointer top-1 right-0 px-2.5 text-gray-300 hover:text-gray-400"
         >
           <span className="text-3xl">×</span>
         </button>
