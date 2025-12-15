@@ -117,7 +117,8 @@ npm run dev
 - **頁面跳轉 (Router):**
   - **Client:** 請使用 `useProgressRouter` hook (取代 `useRouter`)，以確保在跳轉時顯示 Loading 條。
 - **連結 (Link):**
-  - **Client/Server:** 請使用 `import { Link } from '@/i18n/navigation'`。
+  - **Server:** 使用Cache components時，目前此套件會有`Hydration Mismatch` 問題，故server端先使用 `next/link`，待next-intl 更新後再看看。
+  - **Client:** 請使用 `import { Link } from '@/i18n/navigation'`。
 - **重定向 (Redirect):**
   - **Client/Server:** 請使用 `import { redirect } from '@/i18n/navigation'`。它會自動處理語言前綴。
 - **取得路徑 (Pathname):**

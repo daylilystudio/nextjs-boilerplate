@@ -11,25 +11,27 @@ const localesMap: { [key in Locale]: string } = {
   [Locale.EN]: 'English',
 };
 
-export default function LangSwitcher() {
+export default function LangSwitcher({className}: {className?: string}) {
   const pathname = usePathname();
   const currentLocale = useLocale();
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className={`flex items-center space-x-2 ${className}`}>
       {locales.map((locale, index) => (
         <Fragment key={locale}>
-          <Link
-            href={pathname}
-            className={
-              currentLocale === locale
-                ? 'cursor-default'
-                : 'text-gray-400 hover:text-blue-500 transition-colors'
-            }
-            locale={locale}
-          >
-            {localesMap[locale]}
-          </Link>
+          {currentLocale === locale ? (
+            <span className="cursor-default" aria-current="page">
+              {localesMap[locale]}
+            </span>
+          ) : (
+            <Link
+              href={pathname}
+              className="hover:underline opacity-60"
+              locale={locale}
+            >
+              {localesMap[locale]}
+            </Link>
+          )}
           {index < locales.length - 1 && <span>|</span>}
         </Fragment>
       ))}

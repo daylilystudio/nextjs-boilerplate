@@ -37,13 +37,6 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>) {
         alt: t('title'),
       },
     },
-    facebook: {
-      appId: 'FB_APP_ID',
-      admins: 'FB_ADMINS',
-    },
-    other: {
-      'p:domain_verify': 'PINTEREST_VERIFY',
-    },
   };
 }
 
@@ -70,7 +63,7 @@ export default async function RootLayout({
   const timeZone = await getTimeZone();
 
   return (
-    <html lang={locale} className={`${zenMaruGothic.variable} antialiased`}>
+    <html suppressHydrationWarning lang={locale} className={`${zenMaruGothic.variable} antialiased`}>
       <body suppressHydrationWarning>
         {/* TO DO: Replace with your GTM ID */}
         <GoogleTagManager gtmId="GTM-XXXXXX" />
@@ -79,8 +72,6 @@ export default async function RootLayout({
           messages={messages}
           timeZone={timeZone}
         >
-          {/* TO DO: Replace with your Facebook App ID */}
-          {/* <FacebookSDK /> */}
           {children}
         </NextIntlProvider>
       </body>

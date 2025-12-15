@@ -3,16 +3,20 @@
 // https://github.com/vercel/next.js/issues/85672
 
 import Image from 'next/image';
+import {Locale} from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 import { getSession } from '@/lib/auth';
 
-export default async function Profile() {
+export default async function Profile({locale}: {locale: Locale}) {
   const session = await getSession();
-  const t = await getTranslations();
+  const t = await getTranslations({
+    locale,
+    namespace: 'home'
+  });
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 h-8">
       {session && (
         <>
           <Image
@@ -22,7 +26,7 @@ export default async function Profile() {
             src={session?.user?.image || ''}
             alt={session?.user?.name || ''}
           />
-          {t('home.greet') + session?.user?.email}
+          {t('greet') + session?.user?.email}
         </>
       )}
     </div>
