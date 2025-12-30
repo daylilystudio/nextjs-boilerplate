@@ -110,7 +110,7 @@ export default function Modal({
       onClick={onClick}
     >
       <div
-        className={`${className} relative bg-white rounded-lg shadow-xl flex flex-col max-h-[calc(100vh-theme(spacing.8))] w-[calc(100vw-theme(spacing.8))] ${MAX_WIDTH_CLASSES[size]} transition-all duration-300 ${contentClasses}`}
+        className={`${className} relative bg-white rounded-lg shadow-xl flex flex-col max-h-[calc(100dvh-theme(spacing.8))] w-[calc(100vw-theme(spacing.8))] ${MAX_WIDTH_CLASSES[size]} transition-all duration-300 ${contentClasses}`}
       >
         <button
           onClick={onClose}
